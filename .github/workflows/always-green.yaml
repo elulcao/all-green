@@ -23,5 +23,5 @@ jobs:
         env: 
           PAT: ${{secrets.PAT}}
         run: |
-          git remote set-url origin https://$ACTIONS_PAT@github.com/elulcao/all-green.git
+          git remote set-url origin https://$PAT@github.com/elulcao/all-green.git
           git push origin main
