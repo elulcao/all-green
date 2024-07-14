@@ -3,7 +3,6 @@ name: Cl
 on:
   schedule:
     - cron: "*/5 * * * *"
-
   workflow_dispatch:
 
 jobs:
@@ -11,17 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
       - name: Run a one-line script
         run: |
           echo " " >> README.md
-          git config user.name {{USERNAME}}
-          git config user.email {{EMAIL}}
+          git config user.name "${{ secrets.GIT_USER_NAME }}"
+          git config user.email "${{ secrets.GIT_USER_EMAIL }}"
           git add .
           git commit -m "Always green!"
+      
       - name : Push changes
         env: 
-          PAT: ${{secrets.PAT}}
+          PAT: ${{ secrets.PAT }}
         run: |
           git remote set-url origin https://$PAT@github.com/elulcao/all-green.git
           git push origin main
