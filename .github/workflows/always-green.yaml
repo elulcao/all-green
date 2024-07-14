@@ -19,4 +19,9 @@ jobs:
           git config user.email {{EMAIL}}
           git add .
           git commit -m "Always green!"
-          git push
+      - name : Push changes
+        env: 
+          PAT: ${{secrets.PAT}}
+        run: |
+          git remote set-url origin https://$ACTIONS_PAT@github.com/elulcao/all-green.git
+          git push origin main
